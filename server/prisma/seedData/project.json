@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Galactic Navigator",
+    "description": "Advanced platform for cosmic navigation solutions.",
+    "startDate": "2023-01-01T00:00:00Z",
+    "endDate": "2023-12-31T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "name": "Quantum Communicator",
+    "description": "Next-gen systems for quantum messaging and navigation.",
+    "startDate": "2023-02-01T00:00:00Z",
+    "endDate": "2023-10-15T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "name": "Green Energy Initiative",
+    "description": "Transforming renewable energy through cutting-edge technologies.",
+    "startDate": "2023-03-05T00:00:00Z",
+    "endDate": "2024-03-05T00:00:00Z"
+  },
+  {
+    "id": 4,
+    "name": "Dynamic Development",
+    "description": "Innovating methodologies in software engineering.",
+    "startDate": "2023-01-20T00:00:00Z",
+    "endDate": "2023-09-20T00:00:00Z"
+  },
+  {
+    "id": 5,
+    "name": "AI Innovation Hub",
+    "description": "Bridging AI research with real-world applications.",
+    "startDate": "2023-04-15T00:00:00Z",
+    "endDate": "2023-11-30T00:00:00Z"
+  },
+  {
+    "id": 6,
+    "name": "Biotech Revolution",
+    "description": "Pioneering the future of health and biotechnology.",
+    "startDate": "2023-02-25T00:00:00Z",
+    "endDate": "2023-08-25T00:00:00Z"
+  },
+  {
+    "id": 7,
+    "name": "SmartGolf Innovations",
+    "description": "Integrating AI into the design of premium golf equipment.",
+    "startDate": "2023-05-10T00:00:00Z",
+    "endDate": "2023-12-10T00:00:00Z"
+  },
+  {
+    "id": 8,
+    "name": "Hospitality Revolution",
+    "description": "Transforming hotel management with innovative technology.",
+    "startDate": "2023-03-01T00:00:00Z",
+    "endDate": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 9,
+    "name": "Telecom Future",
+    "description": "Enhancing telecommunication infrastructure for tomorrow.",
+    "startDate": "2023-06-01T00:00:00Z",
+    "endDate": "2023-12-01T00:00:00Z"
+  },
+  {
+    "id": 10,
+    "name": "Cybersecurity Initiative",
+    "description": "Strengthening cybersecurity measures with innovative strategies.",
+    "startDate": "2023-07-01T00:00:00Z",
+    "endDate": "2024-02-01T00:00:00Z"
+  }
+]
