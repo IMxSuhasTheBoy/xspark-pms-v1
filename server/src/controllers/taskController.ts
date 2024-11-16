@@ -70,6 +70,7 @@ export const createTask = async (req: Request, res: Response) => {
 export const updateTaskStatus = async (req: Request, res: Response) => {
   const { taskId } = req.params;
   const { status } = req.body;
+
   try {
     const updatedTask = await prisma.task.update({
       where: {
@@ -84,6 +85,41 @@ export const updateTaskStatus = async (req: Request, res: Response) => {
     res
       .status(500)
       .json({ message: `Error updating task status: ${error.message}` });
+  }
+};
+
+export const editTask = async (req: Request, res: Response) => {
+  const { taskId } = req.params;
+  const {
+    title,
+    description,
+    status,
+    priority,
+    tags,
+    startDate,
+    dueDate,
+    assignedUserId,
+  } = req.body;
+
+  try {
+    const updatedTask = await prisma.task.update({
+      where: {
+        id: Number(taskId),
+      },
+      data: {
+        title,
+        description,
+        status,
+        priority,
+        tags,
+        startDate,
+        dueDate,
+        assignedUserId,
+      },
+    });
+    res.json(updatedTask);
+  } catch (error: any) {
+    res.status(500).json({ message: `Error updating task: ${error.message}` });
   }
 };
 

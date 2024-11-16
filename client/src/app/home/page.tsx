@@ -26,10 +26,10 @@ import {
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
 
 const taskColumns: GridColDef[] = [
-  { field: "title", headerName: "Title", width: 200 },
-  { field: "status", headerName: "Status", width: 150 },
-  { field: "priority", headerName: "Priority", width: 150 },
-  { field: "dueDate", headerName: "Due Date", width: 150 },
+  { field: "title", headerName: "Title", width: 260 },
+  { field: "status", headerName: "Status", width: 120 },
+  { field: "priority", headerName: "Priority", width: 120 },
+  { field: "dueDate", headerName: "Due Date", width: 230 },
 ];
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];

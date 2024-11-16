@@ -77,7 +77,7 @@ const Timeline = () => {
     return <div className="px-4 xl:px-6">No tasks available</div>;
 
   return (
-    <div className="max-w-full p-8">
+    <div className="min-w-[1000px] bg-inherit p-8">
       <header className="mb-4 flex items-center justify-between">
         <Header name="Projects Timeline" />
         <div className="relative inline-block w-64">

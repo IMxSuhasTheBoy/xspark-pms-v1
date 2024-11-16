@@ -3,7 +3,12 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { useGetTasksQuery, useUpdateTaskStatusMutation } from "@/state/api";
 import { Task as TaskType } from "@/state/api";
-import { EllipsisVertical, MessageSquareMore, Plus } from "lucide-react";
+import {
+  // EditIcon,
+  EllipsisVertical,
+  MessageSquareMore,
+  Plus,
+} from "lucide-react";
 import { format } from "date-fns";
 import Image from "next/image";
 
@@ -202,9 +207,17 @@ const Task = ({ task }: TaskProps) => {
               ))}
             </div>
           </div>
-          <button className="flex h-6 w-4 flex-shrink-0 items-center justify-center dark:text-neutral-500">
-            <EllipsisVertical size={26} />
-          </button>
+          <div className="flex items-center gap-1">
+            {/* <button
+              className="flex h-6 w-4 items-center justify-center dark:text-neutral-500"
+              onClick={() => openEditModal(task)}
+            >
+              <EditIcon size={26} />
+            </button> */}
+            <button className="flex h-6 w-4 flex-shrink-0 items-center justify-center dark:text-neutral-500">
+              <EllipsisVertical size={26} />
+            </button>
+          </div>
         </div>
 
         <div className="my-3 flex items-center justify-between">

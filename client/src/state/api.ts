@@ -118,7 +118,7 @@ export const api = createApi({
         method: "POST",
         body: task,
       }),
-      invalidatesTags: ["Tasks", "Projects"],
+      invalidatesTags: ["Tasks"],
     }),
     // Note: wont be refetching(invalidating) on update of an task, but will be refetching on update of an task status
     updateTaskStatus: build.mutation<Task, { taskId: number; status: string }>({
