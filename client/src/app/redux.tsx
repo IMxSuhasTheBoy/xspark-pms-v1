@@ -27,12 +27,15 @@ import { api } from "@/state/api";
 // fn to create a mock storage object for server-side rendering (SSR) where window is undefined. This prevents errors when trying to access local storage in a non-browser environment
 const createNoopStorage = () => {
   return {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     getItem(_key: any) {
       return Promise.resolve(null);
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setItem(_key: any, value: any) {
       return Promise.resolve(value);
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     removeItem(_key: any) {
       return Promise.resolve();
     },
