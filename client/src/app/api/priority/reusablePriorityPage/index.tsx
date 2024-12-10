@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useAppSelector } from "@/app/redux";
-import { Priority, Task, useGetTasksByUserQuery } from "@/state/api";
+import { Priority, Task, useGetAuthUserQuery, useGetTasksByUserQuery } from "@/state/api";
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
 import Header from "@/components/Header";
 import ModalNewTask from "@/components/ModalNewTask";
@@ -72,9 +72,9 @@ const ReusablePriorityPage = ({ priority }: Props) => {
   const [view, setView] = useState("list"); // "list" | "table"
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
-  // const { data: currentUser } = useGetAuthUserQuery({});
-  // const userId = currentUser?.userDetails?.userId ?? null;
-  const userId = 1;
+  const { data: currentUser } = useGetAuthUserQuery({});
+  const userId = currentUser?.userDetails?.userId ?? null;
+  // const userId = 1;
   const {
     data: tasks,
     isLoading,
@@ -90,7 +90,7 @@ const ReusablePriorityPage = ({ priority }: Props) => {
   );
 
   if (isTasksError || !tasks)
-    return <div className="dark:text-white">Error fetching tasks</div>;
+    return <div className="dark:text-white">!Error fetching tasks</div>;
 
   return (
     <div className="m-5 p-4">

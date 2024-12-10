@@ -1,4 +1,6 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 // import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 
 export interface Project {
@@ -77,10 +79,39 @@ export interface SearchResults {
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+    prepareHeaders: async (headers) => {
+      const session = await fetchAuthSession();
+      const { accessToken } = session.tokens ?? {};
+      if (accessToken) {
+        headers.set("Authorization", `Bearer ${accessToken}`);
+      }
+      return headers;
+    },
   }),
+
   reducerPath: "api",
   tagTypes: ["Projects", "Tasks", "Users", "Teams"],
   endpoints: (build) => ({
+    getAuthUser: build.query({
+      queryFn: async (_, _queryApi, _extraoptions, fetchWithBQ) => {
+        try {
+          const user = await getCurrentUser();
+          const session = await fetchAuthSession();
+          if (!session) throw new Error("No session found!!!");
+          const { userSub } = session; // conginto id
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { accessToken } = session.tokens ?? {};
+
+          const userDetailsResponse = await fetchWithBQ(`users/${userSub}`);
+          const userDetails = userDetailsResponse.data as User;
+
+          return { data: { user, userSub, userDetails } };
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          return { error: error.message || "Could not fetch user data!!!" };
+        }
+      },
+    }),
     getProjectById: build.query<Project, string>({
       query: (id) => `api/projects/${id}`,
       providesTags: (result, error, id) => [{ type: "Projects", id }],
@@ -146,6 +177,7 @@ export const api = createApi({
 });
 
 export const {
+  useGetAuthUserQuery,
   useGetProjectByIdQuery,
   useGetProjectsQuery,
   useCreateProjectMutation,
