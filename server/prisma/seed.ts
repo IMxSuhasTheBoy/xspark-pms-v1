@@ -1,4 +1,3 @@
-import { User } from "./../../client/src/state/api";
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
@@ -46,24 +45,34 @@ async function main() {
     "Team",
   ];
 
-  // await deleteAllData(deletionOrder);
+  await deleteAllData(deletionOrder);
 
-  // for (const fileName of orderedFileNames) {
-  const filePath = path.join(dataDirectory, "taskAssignment.json");
-  const jsonData = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  const modelName = path.basename(filePath, path.extname(filePath));
-  const model: any = prisma[modelName as keyof typeof prisma];
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"Team"', 'id'), coalesce(max(id)+1, 1), false) FROM "Team";`;
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"Project"', 'id'), coalesce(max(id)+1, 1), false) FROM "Project";`;
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"ProjectTeam"', 'id'), coalesce(max(id)+1, 1), false) FROM "ProjectTeam";`;
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"Task"', 'id'), coalesce(max(id)+1, 1), false) FROM "Task";`;
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"Attachment"', 'id'), coalesce(max(id)+1, 1), false) FROM "Attachment";`;
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"Comment"', 'id'), coalesce(max(id)+1, 1), false) FROM "Comment";`;
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"TaskAssignment"', 'id'), coalesce(max(id)+1, 1), false) FROM "TaskAssignment";`;
+  await prisma.$executeRaw`SELECT setval(pg_get_serial_sequence('"User"', 'userId'), coalesce(max("userId")+1, 1), false) FROM "User";`;
+  console.log("ID Reset"); // Debugging line
 
-  try {
-    for (const data of jsonData) {
-      await model.create({ data });
-      console.log(`Seeded ${modelName} with data from ${filePath}`);
+  for (const fileName of orderedFileNames) {
+    const filePath = path.join(dataDirectory, fileName);
+    const jsonData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    const modelName = path.basename(filePath, path.extname(filePath));
+    const model: any = prisma[modelName as keyof typeof prisma];
+
+    try {
+      for (const data of jsonData) {
+        await model.create({ data });
+        console.log(`Seeded ${modelName} with data from ${filePath}`);
+      }
+    } catch (error) {
+      console.error(`Error seeding data for ${modelName}:`, error);
     }
-  } catch (error) {
-    console.error(`Error seeding data for ${modelName}:`, error);
   }
 }
-// }
 
 main()
   .catch((e) => console.error(e))
